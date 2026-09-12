@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Stocks Ranking — AI Score 1-10 | Invelix</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>.score-pill{font-family:'JetBrains Mono',monospace;font-weight:700;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:28px;font-size:13px;color:white}.score-10,.score-9{background:#16C784}.score-8,.score-7{background:#0EE6B7;color:#0B1220}.score-6,.score-5{background:#F59E0B}.score-4,.score-3{background:#F97316}.score-1,.score-2{background:#EF4444}</style>
+</head>
+<body class="bg-[#F8F9FB] font-sans text-slate-800">
+<header class="sticky top-0 z-50 bg-[#0B1220] text-white"><div class="max-w-[1280px] mx-auto px-4 lg:px-6 h-14 flex items-center justify-between"><a href="index.html" class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0EE6B7] to-[#16C784] flex items-center justify-center font-extrabold text-[#0B1220]">IX</div><span class="font-extrabold">INVELIX</span></a><nav class="hidden lg:flex gap-5 text-sm text-white/80"><a href="us-stocks.html" class="text-white font-semibold">US Stocks</a><a href="etfs.html">ETFs</a><a href="trade-ideas.html">Trade Ideas</a><a href="pricing.html">Pricing</a></nav><a href="pricing.html" class="h-8 px-4 rounded-full bg-[#0EE6B7] text-[#0B1220] text-sm font-bold flex items-center">Get Started</a></div></header>
+
+<div class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <h1 class="text-2xl font-extrabold">US Stocks Ranking — Best Stocks Picked by AI</h1>
+  <p class="text-sm text-slate-500">6,500 US-listed stocks ranked by Invelix Score (probability of beating market in 3 months). Updated daily after close.</p>
+
+  <div class="mt-4 flex flex-wrap gap-2 text-xs">
+    <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3 py-1.5"><span class="font-semibold">Filter:</span>
+      <select id="countryFilter" class="bg-transparent font-semibold">
+        <option value="">All Countries</option>
+        <option value="BR">🇧🇷 Brazil</option>
+        <option value="CA">🇨🇦 Canada</option>
+        <option value="US">🇺🇸 USA</option>
+      </select>
+      <select class="bg-transparent"><option>All Scores</option><option>10 - Strong Buy</option><option>7-10 Buy</option></select>
+      <select class="bg-transparent"><option>All Sectors</option><option>Technology</option><option>Finance</option></select>
+    </div>
+    <input id="search" placeholder="Search ticker or name..." class="h-8 px-3 rounded-full border border-slate-200 bg-white text-sm">
+    <span class="ml-auto text-xs text-slate-500 self-center">Showing <span id="count">10</span> of 6,500 • Page 1 of 650</span>
+  </div>
+
+  <div class="mt-4 bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-50 text-xs uppercase tracking-widest text-slate-500"><tr><th class="text-left px-4 py-3">Rank</th><th class="text-left px-4 py-3">Company</th><th class="text-left px-4 py-3">Country</th><th class="text-left px-4 py-3">AI Score</th><th class="text-left px-4 py-3">Change</th><th class="text-left px-4 py-3">Fundamental</th><th class="text-left px-4 py-3">Technical</th><th class="text-left px-4 py-3">Sentiment</th><th class="text-left px-4 py-3">Low Risk</th><th class="text-right px-4 py-3">Perf YTD</th></tr></thead>
+        <tbody id="tbody" class="divide-y divide-slate-100"></tbody>
+      </table>
+    </div>
+    <div class="px-4 py-3 flex items-center justify-between text-xs bg-slate-50">
+      <div class="flex gap-1"><button class="w-8 h-8 rounded-lg bg-[#0B1220] text-white">1</button><button class="w-8 h-8 rounded-lg bg-white border">2</button><button class="w-8 h-8 rounded-lg bg-white border">3</button><span class="px-2">…</span><button class="w-8 h-8 rounded-lg bg-white border">650</button></div>
+      <a href="stock-aapl.html" class="font-semibold">AAPL is ranked #320 with Score 6 →</a>
+    </div>
+  </div>
+
+  <div class="mt-6 grid lg:grid-cols-3 gap-4 text-xs">
+    <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="font-semibold">How ranking works</div><p class="text-slate-500 mt-1 leading-5">Invelix Score 10 = top decile prob. beating market. Change vs yesterday shows momentum. Low Risk 10 = least volatile.</p><a href="how-it-works.html" class="text-[#0B1220] font-semibold underline">How it Works →</a></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="font-semibold">Export</div><p class="text-slate-500 mt-1">Download CSV (Pro) or copy top 50.</p><button class="mt-2 h-8 px-3 rounded-full bg-slate-100 font-semibold">Export CSV</button><span class="ml-2 px-2 py-1 rounded-full bg-amber-100 text-amber-700">Pro</span></div>
+    <div class="bg-[#0B1220] text-white rounded-xl p-4"><div class="font-semibold">Want alerts?</div><p class="text-white/60 mt-1">Track any stock and get upgrade/downgrade alerts.</p><a href="portfolios.html" class="mt-2 inline-flex h-8 px-3 rounded-full bg-[#0EE6B7] text-[#0B1220] font-bold items-center">Create Portfolio →</a></div>
+  </div>
+</div>
+
+<footer class="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 text-xs text-slate-400 text-center">© 2026 Invelix • <a href="index.html" class="underline">Home</a></footer>
+
+<script>
+const rows = [
+  {rank:1,ticker:"ITUB",name:"Itau Unibanco Holding SA",flag:"🇧🇷",country:"BR",score:10,f:10,t:8,s:10,lr:6,perf:16.06,change:0},
+  {rank:2,ticker:"EQX",name:"Equinox Gold Corp",flag:"🇨🇦",country:"CA",score:10,f:10,t:8,s:9,lr:5,perf:-13.03,change:0},
+  {rank:3,ticker:"BBD",name:"Banco Bradesco SA",flag:"🇧🇷",country:"BR",score:10,f:10,t:6,s:10,lr:6,perf:7.8,change:0},
+  {rank:4,ticker:"VALE",name:"Vale SA",flag:"🇧🇷",country:"BR",score:10,f:9,t:7,s:8,lr:6,perf:17.34,change:0},
+  {rank:5,ticker:"BTG",name:"B2Gold Corp",flag:"🇨🇦",country:"CA",score:10,f:10,t:8,s:10,lr:5,perf:19.06,change:0},
+  {rank:6,ticker:"NVDA",name:"NVIDIA Corp",flag:"🇺🇸",country:"US",score:9,f:9,t:9,s:9,lr:5,perf:68.42,change:1},
+  {rank:7,ticker:"MSFT",name:"Microsoft Corp",flag:"🇺🇸",country:"US",score:9,f:9,t:8,s:8,lr:7,perf:24.11,change:0},
+  {rank:8,ticker:"AVGO",name:"Broadcom Inc",flag:"🇺🇸",country:"US",score:9,f:9,t:9,s:7,lr:6,perf:41.2,change:0},
+  {rank:9,ticker:"SMCI",name:"Super Micro Computer",flag:"🇺🇸",country:"US",score:9,f:8,t:9,s:8,lr:4,perf:55.3,change:1},
+  {rank:10,ticker:"JPM",name:"JPMorgan Chase",flag:"🇺🇸",country:"US",score:9,f:9,t:7,s:8,lr:7,perf:18.9,change:0},
+  {rank:320,ticker:"AAPL",name:"Apple Inc",flag:"🇺🇸",country:"US",score:6,f:8,t:5,s:5,lr:6,perf:20.14,change:0},
+  {rank:321,ticker:"GOOGL",name:"Alphabet Inc",flag:"🇺🇸",country:"US",score:6,f:7,t:6,s:6,lr:6,perf:15.2,change:0},
+];
+function pill(s){let c="score-5";if(s>=9)c="score-10";else if(s>=7)c="score-7";else if(s>=5)c="score-5";else if(s>=3)c="score-3";else c="score-1";return `<span class="score-pill ${c}">${s}</span>`}
+function render(filterCountry="", q=""){
+  const filtered = rows.filter(r=>{
+    if(filterCountry && r.country!==filterCountry) return false;
+    if(q && !(`${r.ticker} ${r.name}`.toLowerCase().includes(q.toLowerCase()))) return false;
+    return true;
+  });
+  document.getElementById('tbody').innerHTML = filtered.map(r=>`<tr class="hover:bg-slate-50"><td class="px-4 py-2.5 font-mono text-xs">${r.rank}</td><td class="px-4 py-2.5"><a href="stock-aapl.html" class="font-semibold text-[#0B1220]">${r.ticker}</a> <span class="text-slate-500">${r.name}</span></td><td class="px-4 py-2.5">${r.flag}</td><td class="px-4 py-2.5">${pill(r.score)}</td><td class="px-4 py-2.5 text-slate-400">${r.change===0?'—':(r.change>0?'▲ +'+r.change:'▼ '+r.change)}</td><td class="px-4 py-2.5">${pill(r.f)}</td><td class="px-4 py-2.5">${pill(r.t)}</td><td class="px-4 py-2.5">${pill(r.s)}</td><td class="px-4 py-2.5">${pill(r.lr)}</td><td class="px-4 py-2.5 text-right font-mono ${r.perf>=0?'text-[#16C784]':'text-[#EF4444]'}">${r.perf>0?'+':''}${r.perf}%</td></tr>`).join('');
+  document.getElementById('count').textContent = filtered.length;
+}
+render();
+document.getElementById('countryFilter').addEventListener('change', e=> render(e.target.value, document.getElementById('search').value));
+document.getElementById('search').addEventListener('input', e=> render(document.getElementById('countryFilter').value, e.target.value));
+</script>
+</body>
+</html>

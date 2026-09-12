@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invelix | AI-Powered Stock Picking — Invest with the odds in your favor</title>
+<meta name="description" content="Find the best stocks with Invelix's AI stock picker. Optimize your portfolio with explainable AI insights and make smarter, data-driven investment decisions.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['JetBrains Mono','monospace']},
+      colors: {
+        midnight: '#0B1220',
+        teal: '#0EE6B7',
+        slate: '#64748B',
+      }
+    }
+  }
+}
+</script>
+<style>
+  .score-pill{font-family:'JetBrains Mono',monospace;font-weight:700;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:28px;font-size:13px;color:white}
+  .score-10,.score-9{background:#16C784}.score-8,.score-7{background:#0EE6B7;color:#0B1220}.score-6,.score-5{background:#F59E0B}.score-4,.score-3{background:#F97316}.score-2,.score-1{background:#EF4444}
+  .gradient-bar{height:8px;border-radius:9999px;background:linear-gradient(to right,#EF4444,#F59E0B,#0EE6B7,#16C784)}
+</style>
+</head>
+<body class="bg-[#F8F9FB] text-slate-800 font-sans antialiased">
+
+<!-- Top Nav -->
+<header class="sticky top-0 z-50 bg-[#0B1220] text-white border-b border-white/10">
+  <div class="max-w-[1280px] mx-auto px-4 lg:px-6 h-[64px] flex items-center justify-between gap-4">
+    <div class="flex items-center gap-8">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0EE6B7] to-[#16C784] flex items-center justify-center font-extrabold text-[#0B1220] text-[16px]">IX</div>
+        <span class="text-[20px] font-extrabold tracking-tight">INVELIX</span>
+        <span class="hidden lg:inline text-[10px] tracking-widest bg-white/10 px-2 py-0.5 rounded-full ml-1">AI STOCK PICKER</span>
+      </a>
+      <nav class="hidden xl:flex items-center gap-5 text-[13.5px] font-medium text-white/80">
+        <a href="us-stocks.html" class="hover:text-white">US Stocks</a>
+        <a href="us-stocks.html#europe" class="hover:text-white">Europe</a>
+        <a href="etfs.html" class="hover:text-white">ETFs</a>
+        <a href="trade-ideas.html" class="hover:text-white">Trade Ideas</a>
+        <a href="pricing.html" class="hover:text-white">Pricing</a>
+        <a href="how-it-works.html" class="hover:text-white">How it Works</a>
+      </nav>
+    </div>
+
+    <!-- Search -->
+    <div class="flex-1 max-w-[420px] hidden md:block relative">
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">🔍</span>
+        <input id="searchInput" type="text" placeholder="Search stocks, ETFs, or investment themes for AI analysis" class="w-full h-[38px] pl-9 pr-3 rounded-full bg-white text-[13px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0EE6B7]">
+        <div id="searchDropdown" class="hidden absolute top-[44px] left-0 right-0 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden text-slate-800">
+          <div class="p-2 text-xs text-slate-500">Popular stocks:</div>
+          <a href="stock-aapl.html" class="flex items-center justify-between px-3 py-2 hover:bg-slate-50"><span class="font-semibold">AAPL <span class="font-normal text-slate-500">Apple Inc</span></span><span class="score-pill score-6">6</span></a>
+          <a href="stock-aapl.html" class="flex items-center justify-between px-3 py-2 hover:bg-slate-50"><span class="font-semibold">TSLA <span class="font-normal text-slate-500">Tesla Inc</span></span><span class="score-pill score-5">5</span></a>
+          <a href="stock-aapl.html" class="flex items-center justify-between px-3 py-2 hover:bg-slate-50"><span class="font-semibold">NVDA <span class="font-normal text-slate-500">NVIDIA Corp</span></span><span class="score-pill score-9">9</span></a>
+          <div class="p-2 flex gap-2 text-xs"><span class="px-2 py-1 bg-slate-100 rounded-full">USA</span><span class="px-2 py-1 bg-slate-100 rounded-full">Europe</span><span class="px-2 py-1 bg-slate-100 rounded-full">ETFs</span><span class="px-2 py-1 bg-slate-100 rounded-full">Themes</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="portfolios.html" class="hidden sm:inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-white/10 hover:bg-white/20 text-sm font-medium">My Portfolios</a>
+      <a href="pricing.html" class="inline-flex items-center h-9 px-5 rounded-full bg-[#0EE6B7] text-[#0B1220] text-sm font-bold hover:bg-[#16C784]">Get Started — Free</a>
+      <button id="mobileMenuBtn" class="xl:hidden w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">☰</button>
+    </div>
+  </div>
+  <!-- Mobile search -->
+  <div class="md:hidden px-4 pb-3">
+    <input type="text" placeholder="Search stocks, ETFs..." class="w-full h-9 pl-9 pr-3 rounded-full bg-white text-sm placeholder:text-slate-400">
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="hidden xl:hidden bg-[#0B1220] text-white px-4 pb-4 space-y-2 text-sm">
+  <a href="us-stocks.html" class="block py-2 border-b border-white/10">US Stocks</a>
+  <a href="etfs.html" class="block py-2 border-b border-white/10">ETFs</a>
+  <a href="trade-ideas.html" class="block py-2 border-b border-white/10">Trade Ideas</a>
+  <a href="pricing.html" class="block py-2 border-b border-white/10">Pricing</a>
+  <a href="how-it-works.html" class="block py-2">How it Works</a>
+</div>
+
+<!-- Hero -->
+<section class="bg-[#0B1220] text-white">
+  <div class="max-w-[1280px] mx-auto px-4 lg:px-6 py-10 lg:py-14 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[#0EE6B7] mb-3">● AI-POWERED STOCK PICKING <span class="text-white/40">| TRUSTED BY 150K+ INVESTORS</span></div>
+      <h1 class="text-[32px] lg:text-[44px] font-extrabold leading-[1.05] tracking-tight">
+        Invest with the odds<br>in your favor.
+      </h1>
+      <p class="mt-4 text-[16px] leading-6 text-white/70 max-w-[560px]">Get unique insights, boost your portfolios, and make smart data-driven investment decisions. Our AI analyzes <span class="text-white font-semibold">10,000+ features per stock per day</span>.</p>
+
+      <!-- Hero Search Card -->
+      <div class="mt-6 bg-white rounded-2xl p-2 flex items-center gap-2 max-w-[560px] shadow-lg">
+        <span class="pl-3 text-slate-400">🔍</span>
+        <input id="heroSearch" type="text" placeholder="Search stocks, ETFs, or investment themes for AI analysis" class="flex-1 h-10 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none">
+        <button onclick="document.getElementById('searchInput').focus()" class="h-10 px-6 rounded-full bg-[#0B1220] text-white text-sm font-semibold">Analyze</button>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-white/50">Popular stocks:</span>
+        <a href="stock-aapl.html" class="px-3 py-1 rounded-full bg-white text-[#0B1220] font-semibold">AAPL Apple</a>
+        <a href="stock-aapl.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">TSLA Tesla</a>
+        <a href="stock-aapl.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">AMZN Amazon</a>
+        <a href="stock-aapl.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">MSFT Microsoft</a>
+        <a href="stock-aapl.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">GOOGL Alphabet</a>
+      </div>
+      <div class="mt-4 flex items-center gap-3 text-xs text-white/60">
+        <span>Stocks ranking:</span><a href="us-stocks.html" class="px-2.5 py-1 rounded-full bg-white text-[#0B1220] font-semibold">USA</a><a href="us-stocks.html#europe" class="px-2.5 py-1 rounded-full bg-white/10">Europe</a>
+        <span class="ml-2">ETFs ranking:</span><a href="etfs.html" class="px-2.5 py-1 rounded-full bg-white/10">USA</a>
+        <span class="ml-2 hidden lg:inline">Trade Ideas:</span><a href="trade-ideas.html" class="hidden lg:inline px-2.5 py-1 rounded-full bg-white/10">USA</a><a href="trade-ideas.html" class="hidden lg:inline px-2.5 py-1 rounded-full bg-white/10">Europe</a>
+      </div>
+    </div>
+
+    <!-- Right visual: AI Score mock + app -->
+    <div class="relative">
+      <div class="bg-white rounded-2xl p-5 shadow-2xl text-slate-800">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-xs font-semibold tracking-widest text-slate-500">INVELIX AI STOCK PICKER</div>
+          <div class="text-xs text-slate-400">AAPL • Apple Inc</div>
+        </div>
+        <div class="grid grid-cols-[auto_1fr] gap-4 items-center">
+          <div class="w-[88px] h-[88px] rounded-2xl bg-[#F59E0B] flex flex-col items-center justify-center text-white">
+            <div class="text-[32px] font-extrabold leading-none">6</div><div class="text-xs font-bold tracking-widest">HOLD</div>
+          </div>
+          <div>
+            <div class="text-sm font-semibold">AI Score <span class="text-slate-400 font-normal">— 56% prob. beating market (3M)</span></div>
+            <div class="mt-2 grid grid-cols-4 gap-2 text-center">
+              <div class="bg-slate-50 rounded-lg py-2"><div class="text-[11px] text-slate-500">Fundamental</div><div class="font-bold text-[#16C784]">8</div></div>
+              <div class="bg-slate-50 rounded-lg py-2"><div class="text-[11px] text-slate-500">Technical</div><div class="font-bold">5</div></div>
+              <div class="bg-slate-50 rounded-lg py-2"><div class="text-[11px] text-slate-500">Sentiment</div><div class="font-bold">5</div></div>
+              <div class="bg-slate-50 rounded-lg py-2"><div class="text-[11px] text-slate-500">Low Risk</div><div class="font-bold">6</div></div>
+            </div>
+            <div class="mt-3">
+              <div class="gradient-bar relative"><div class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-slate-800 rounded-full" style="left:58%"></div></div>
+              <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>Low</span><span>Average</span><span>High</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <a href="stock-aapl.html" class="flex-1 h-9 rounded-full bg-[#0B1220] text-white text-sm font-semibold flex items-center justify-center">See AAPL analysis →</a>
+          <a href="how-it-works.html" class="h-9 px-4 rounded-full border border-slate-200 text-sm font-semibold flex items-center justify-center">How it works</a>
+        </div>
+      </div>
+      <!-- App badge floating -->
+      <div class="mt-4 bg-white/10 backdrop-blur rounded-2xl p-4 flex items-center gap-4 text-white">
+        <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-xl">📱</div>
+        <div class="flex-1">
+          <div class="text-sm font-semibold">Download the Invelix app</div>
+          <div class="text-xs text-white/60">Get alerts for upgrades & downgrades</div>
+          <div class="mt-2 flex gap-2">
+            <a href="#" class="px-3 py-1.5 rounded-lg bg-white text-[#0B1220] text-xs font-bold">App Store</a>
+            <a href="#" class="px-3 py-1.5 rounded-lg bg-white text-[#0B1220] text-xs font-bold">Google Play</a>
+          </div>
+        </div>
+        <div class="w-16 h-16 bg-white rounded-lg flex items-center justify-center text-[10px] text-slate-600">QR<br>GET APP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Best Stocks -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-8">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 text-sm font-semibold"><span class="w-2 h-2 rounded-full bg-[#16C784]"></span> Best Stocks and ETFs Picked by AI <span class="text-xs font-normal text-slate-500 bg-[#16C784]/10 px-2 py-0.5 rounded-full">For a 3-month investment horizon</span></div>
+      <h2 class="mt-2 text-[22px] font-bold">Popular Stocks Ranked by Invelix AI</h2>
+      <p class="text-sm text-slate-500">US-listed stocks are ranked according to the AI Score, which rates the probability of beating the market in the next 3 months.</p>
+    </div>
+    <a href="us-stocks.html" class="hidden lg:inline-flex text-sm font-semibold text-[#0B1220] border border-slate-200 rounded-full px-4 py-2 hover:bg-slate-50">See the full US Popular Stocks ranking →</a>
+  </div>
+
+  <div class="mt-6 bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-widest">
+          <tr><th class="text-left px-4 py-3 font-semibold">Rank</th><th class="text-left px-4 py-3 font-semibold">Company</th><th class="text-left px-4 py-3 font-semibold">Country</th><th class="text-left px-4 py-3 font-semibold">AI Score</th><th class="text-left px-4 py-3 font-semibold">Change</th><th class="text-left px-4 py-3 font-semibold">Fundamental</th><th class="text-left px-4 py-3 font-semibold">Technical</th><th class="text-left px-4 py-3 font-semibold">Sentiment</th><th class="text-left px-4 py-3 font-semibold">Low Risk</th><th class="text-right px-4 py-3 font-semibold">Perf YTD</th></tr>
+        </thead>
+        <tbody id="rankingTable" class="divide-y divide-slate-100">
+          <!-- JS filled -->
+        </tbody>
+      </table>
+    </div>
+    <div class="px-4 py-3 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+      <span>Showing top 5 of 6,500 US stocks • Updated daily after close</span>
+      <a href="us-stocks.html" class="font-semibold text-[#0B1220]">See the full US Popular Stocks ranking →</a>
+    </div>
+  </div>
+
+  <!-- Country pills -->
+  <div class="mt-6">
+    <div class="text-sm font-semibold mb-3">Top Stocks in:</div>
+    <div class="flex flex-wrap gap-2 text-sm">
+      <a href="us-stocks.html" class="px-4 py-2 rounded-full bg-[#0B1220] text-white font-semibold flex items-center gap-1.5">🇺🇸 USA</a>
+      <a href="us-stocks.html#europe" class="px-4 py-2 rounded-full bg-white border border-slate-200 hover:bg-slate-50">🇪🇺 Europe</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇦🇹 Austria</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇧🇪 Belgium</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇨🇦 Canada</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇩🇰 Denmark</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇫🇮 Finland</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇫🇷 France</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇩🇪 Germany</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇮🇪 Ireland</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇮🇹 Italy</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇱🇺 Luxembourg</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇳🇱 Netherlands</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇳🇴 Norway</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇵🇱 Poland</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇵🇹 Portugal</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇪🇸 Spain</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇸🇪 Sweden</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇨🇭 Switzerland</a>
+      <a href="us-stocks.html" class="px-3 py-2 rounded-full bg-white border border-slate-200">🇬🇧 United Kingdom</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8">
+    <div class="text-center">
+      <div class="text-sm font-semibold tracking-widest text-slate-500">WHAT OUR USERS SAY</div>
+      <div class="text-xs text-slate-400">Trusted by over 150,000 investors</div>
+    </div>
+    <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm leading-6">
+      <blockquote class="space-y-2"><p class="text-slate-700">“This is an exceptionally powerful tool that allows one to understand what really drives a stock, generating actionable investment ideas often in surprising and counterintuitive ways, all presented clearly and coherently. The stellar performance of Invelix’s recommendations speaks for itself.”</p><footer class="font-semibold">Guy R. — UK</footer></blockquote>
+      <blockquote class="space-y-2"><p class="text-slate-700">“Invelix is an extraordinary tool for checking out new investment ideas or to browse for new prospects. I have found more than a few big winners by browsing the top-ranked AI Scores.”</p><footer class="font-semibold">Garret S. — USA</footer></blockquote>
+      <blockquote class="space-y-2"><p class="text-slate-700">“Very happy with my experience with Invelix. It allows me to effortlessly evaluate investment positions related to my strategy. Invelix Score helps me identify the best time to buy and sell.”</p><footer class="font-semibold">Sergio A. — Spain</footer></blockquote>
+      <blockquote class="space-y-2"><p class="text-slate-700">“Invelix AI can scout a comprehensive set of stocks and provides crucial information to support decision-making. Of all the platforms I have evaluated, Invelix is by far the most accurate and intuitive one.”</p><footer class="font-semibold">Mario G. — Italy</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- Smart Investing -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <div class="bg-[#0B1220] rounded-2xl p-6 lg:p-8 text-white">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-[24px] font-extrabold leading-tight">Smart Investing Made Easy for Everyone</h2>
+        <p class="mt-3 text-white/70 text-sm leading-6">Invelix’s AI does the hard work, analyzing <span class="text-white font-semibold">10,000+ features per day per stock</span> and rating stocks probability of beating the market with the Invelix Score.</p>
+        <div class="mt-6 grid grid-cols-5 gap-2">
+          <div class="text-center"><div class="w-full h-14 rounded-xl bg-[#EF4444] flex items-center justify-center text-white font-extrabold text-xl">1</div><div class="text-[10px] mt-1 text-white/60">Strong Sell</div></div>
+          <div class="text-center"><div class="w-full h-14 rounded-xl bg-[#F97316] flex items-center justify-center text-white font-extrabold text-xl">3</div><div class="text-[10px] mt-1 text-white/60">Sell</div></div>
+          <div class="text-center"><div class="w-full h-14 rounded-xl bg-[#F59E0B] flex items-center justify-center text-white font-extrabold text-xl">6</div><div class="text-[10px] mt-1 text-white/60">Hold</div></div>
+          <div class="text-center"><div class="w-full h-14 rounded-xl bg-[#0EE6B7] flex items-center justify-center text-[#0B1220] font-extrabold text-xl">8</div><div class="text-[10px] mt-1 text-white/60">Buy</div></div>
+          <div class="text-center"><div class="w-full h-14 rounded-xl bg-[#16C784] flex items-center justify-center text-white font-extrabold text-xl">10</div><div class="text-[10px] mt-1 text-white/60">Strong Buy</div></div>
+        </div>
+        <div class="mt-4">
+          <div class="gradient-bar relative"><div class="absolute w-3 h-3 bg-white border-2 border-[#0B1220] rounded-full top-1/2 -translate-y-1/2" style="left:20%"></div></div>
+          <div class="flex justify-between text-[11px] text-white/50 mt-1"><span>Low</span><span>Average</span><span>High</span></div>
+          <div class="text-center text-xs text-white/60 mt-1">Probability of Beating the Market in 3 Months</div>
+        </div>
+      </div>
+      <div>
+        <div class="bg-white rounded-2xl p-6 text-slate-800">
+          <div class="text-xs font-semibold tracking-widest text-slate-500">DATA ANALYZED TO CALCULATE THE INVELIX SCORE</div>
+          <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+            <div><div class="text-[22px] font-extrabold">+900</div><div class="text-xs text-slate-500">Daily indicators<br>per stock</div></div>
+            <div><div class="text-[22px] font-extrabold">+10,000</div><div class="text-xs text-slate-500">Daily features<br>per stock</div></div>
+            <div><div class="text-[22px] font-extrabold">+5 Billion</div><div class="text-xs text-slate-500">Features used<br>to learn</div></div>
+          </div>
+          <div class="mt-4 text-xs text-slate-500 leading-5">+600 technical, 150 fundamental, and 150 sentiment daily indicators per stock, processed into more than 10,000 daily features by our Artificial Intelligence.</div>
+          <a href="how-it-works.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">How it Works →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6 space-y-6">
+
+  <!-- Use case 1 -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h3 class="text-xl font-bold">Pick the Winners. Avoid the Losers</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">Since 2017, US-listed stocks with the highest Invelix Score (10/10) outperformed the market by <span class="font-semibold text-[#16C784]">+21.05%</span> on average after 3 months (annualized alpha), while stocks with the lowest Score (1/10) underperformed by <span class="font-semibold text-[#EF4444]">-33.28%</span>.</p>
+      <a href="us-stocks.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">See Today’s Top Stocks →</a>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4">
+      <div class="h-[140px] flex items-end gap-1">
+        <div class="flex-1 bg-[#EF4444] rounded-t" style="height:30%"><div class="text-[10px] text-white text-center pt-1">1</div></div>
+        <div class="flex-1 bg-[#EF4444]/70 rounded-t" style="height:35%"></div>
+        <div class="flex-1 bg-[#F97316] rounded-t" style="height:45%"></div>
+        <div class="flex-1 bg-[#F59E0B] rounded-t" style="height:55%"></div>
+        <div class="flex-1 bg-[#F59E0B] rounded-t" style="height:60%"></div>
+        <div class="flex-1 bg-[#0EE6B7] rounded-t" style="height:75%"></div>
+        <div class="flex-1 bg-[#0EE6B7] rounded-t" style="height:85%"></div>
+        <div class="flex-1 bg-[#16C784] rounded-t" style="height:100%"><div class="text-[10px] text-white text-center pt-1">10</div></div>
+      </div>
+      <div class="text-center text-xs text-slate-500 mt-2">Annualized Alpha by Invelix Score (2017-2025)</div>
+    </div>
+  </div>
+
+  <!-- Use case 2 -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div class="order-2 lg:order-1 bg-slate-50 rounded-xl p-4">
+      <div class="text-xs font-semibold text-slate-500">INVELIX BEST STOCKS STRATEGY vs S&P 500</div>
+      <div class="mt-3 h-[140px] relative">
+        <svg viewBox="0 0 300 140" class="w-full h-full">
+          <path d="M0 120 L30 100 L60 90 L90 70 L120 60 L150 40 L180 30 L210 20 L250 10 L300 5" fill="none" stroke="#16C784" stroke-width="3"/>
+          <path d="M0 120 L30 110 L60 105 L90 95 L120 85 L150 80 L180 70 L210 65 L250 55 L300 50" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 4"/>
+        </svg>
+        <div class="absolute top-2 right-2 text-xs"><span class="inline-flex items-center gap-1"><span class="w-3 h-0.5 bg-[#16C784]"></span> Invelix +376%</span><br><span class="inline-flex items-center gap-1"><span class="w-3 h-0.5 bg-slate-400"></span> S&P 500 +166%</span></div>
+      </div>
+      <div class="text-xs text-slate-500">Jan 3, 2017 → Jun 9, 2025</div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <h3 class="text-xl font-bold">Generate Superior Returns</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">We built an investment strategy for US-listed stocks using the Invelix Score. The AI-powered strategy generated <span class="font-semibold">+376% from 2017 to 2025</span> vs only +166% of the S&P 500.</p>
+      <a href="trade-ideas.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">Check Invelix Best Stock Strategy →</a>
+    </div>
+  </div>
+
+  <!-- Use case 3 Trade Ideas -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h3 class="text-xl font-bold">Trade Ideas: Stocks With the Best Track Record</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">Discover potential trades where Invelix AI has been sharp since 2017, with at least a <span class="font-semibold">60% win rate</span> for Buy signals and at least a 60% loss rate for Sell signals.</p>
+      <p class="mt-2 text-xs text-slate-500">See historical buy/sell markers on price chart and expected forecast for 1, 3, and 6 months.</p>
+      <a href="trade-ideas.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">See Trade Ideas →</a>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4">
+      <div class="h-[140px] relative bg-white rounded-lg border border-slate-200 p-2">
+        <div class="text-xs text-slate-400">ITUB • Daily</div>
+        <svg viewBox="0 0 300 100" class="w-full h-[90px]">
+          <path d="M0 70 L40 65 L80 60 L120 55 L160 30 L200 25 L240 15 L300 10" fill="none" stroke="#0B1220" stroke-width="1.5"/>
+          <circle cx="80" cy="60" r="5" fill="#16C784"/><text x="80" y="58" font-size="7" text-anchor="middle" fill="white">▲</text>
+          <circle cx="160" cy="30" r="5" fill="#16C784"/>
+          <path d="M200 25 L260 8 L300 2" fill="none" stroke="#16C784" stroke-width="2" stroke-dasharray="3 3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Use case 4 Explainable -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div class="order-2 lg:order-1 bg-slate-50 rounded-xl p-4">
+      <div class="text-xs font-semibold">AAPL Alpha Signals — What Drives the Score</div>
+      <div class="mt-3 space-y-1.5 text-xs">
+        <div class="flex items-center gap-2"><span class="w-20">Fund. Long Tail</span><div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:72%"></div></div><span class="w-12 text-right font-mono text-[#16C784]">+1.83%</span></div>
+        <div class="flex items-center gap-2"><span class="w-20">Chart 180d</span><div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:42%"></div></div><span class="w-12 text-right font-mono text-[#16C784]">+1.08%</span></div>
+        <div class="flex items-center gap-2"><span class="w-20">Chart 60d</span><div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-[#EF4444]" style="width:34%"></div></div><span class="w-12 text-right font-mono text-[#EF4444]">-0.87%</span></div>
+        <div class="flex items-center gap-2"><span class="w-20">Net PP&E</span><div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:33%"></div></div><span class="w-12 text-right font-mono text-[#16C784]">+0.85%</span></div>
+      </div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <h3 class="text-xl font-bold">Understand the Stock Features Used</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">Invelix uses <span class="font-semibold">Explainable AI</span>. There are no “black boxes.” The stock features (alpha signals) that our AI analyzes to calculate every Score are transparent and easy to understand.</p>
+      <a href="stock-aapl.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">See AAPL stock analysis →</a>
+    </div>
+  </div>
+
+  <!-- Use case 5 Portfolio -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h3 class="text-xl font-bold">Track the AI Score Evolution of Your Portfolio</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">Monitor daily changes. Receive alerts when a stock is downgraded or upgraded. With <span class="font-semibold">Average Invelix Score, Portfolio Diversity Score, and daily alerts</span>, improve your probability of beating the market.</p>
+      <a href="portfolios.html" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">Create your first portfolio →</a>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4">
+      <div class="bg-white rounded-lg border border-slate-200 p-3">
+        <div class="flex items-center justify-between text-xs"><span class="font-semibold">Tech Growth • 4 holdings</span><span class="px-2 py-1 rounded-full bg-[#16C784] text-white font-bold">Avg 7.8</span><span class="px-2 py-1 rounded-full bg-white border">Div 6</span></div>
+        <div class="mt-3 space-y-2 text-xs">
+          <div class="flex items-center justify-between"><span>🇺🇸 AAPL Apple</span><span class="score-pill score-6">6</span><span class="text-[#EF4444]">▼ -1</span></div>
+          <div class="flex items-center justify-between"><span>🇧🇷 ITUB Itau</span><span class="score-pill score-10">10</span><span class="text-slate-400">—</span></div>
+          <div class="flex items-center justify-between"><span>🇺🇸 NVDA NVIDIA</span><span class="score-pill score-9">9</span><span class="text-[#16C784]">▲ +1</span></div>
+        </div>
+        <div class="mt-3 p-2 rounded-lg bg-amber-50 border border-amber-200 text-xs">⚠️ AAPL downgraded 7→6 — review suggestion: Replace TSLA (5) with AVGO (9)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Use case 6 Timing -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8 grid lg:grid-cols-2 gap-8 items-center">
+    <div class="order-2 lg:order-1 bg-slate-50 rounded-xl p-4">
+      <div class="text-xs font-semibold">TSLA Score Evolution • Daily</div>
+      <svg viewBox="0 0 300 100" class="w-full h-[100px] mt-2">
+        <polyline points="0,70 40,65 80,60 120,45 160,55 200,35 240,30 300,20" fill="none" stroke="#0EE6B7" stroke-width="2"/>
+        <circle cx="240" cy="30" r="4" fill="#16C784"/><circle cx="300" cy="20" r="4" fill="#16C784"/>
+      </svg>
+      <div class="flex justify-between text-[10px] text-slate-400"><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span></div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <h3 class="text-xl font-bold">Identify the Best Moment to Invest</h3>
+      <p class="mt-3 text-sm text-slate-600 leading-6">Keep a close eye on your preferred stocks until they receive a Buy or Strong Buy rating (Score 7 to 10). Choose stocks with a <span class="font-semibold">rising probability</span> of beating the market.</p>
+      <a href="stock-aapl.html#evolution" class="mt-4 inline-flex h-9 px-4 rounded-full bg-[#0B1220] text-white text-sm font-semibold items-center">Check TSLA Historical Scores →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="max-w-[1280px] mx-auto px-4 lg:px-6 py-4">
+  <a href="pricing.html" class="block w-full bg-[#0EE6B7] hover:bg-[#16C784] rounded-2xl py-4 text-center font-bold text-[#0B1220]">Join for Free and Create Your First Portfolio →</a>
+</div>
+
+<!-- IPOs -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <h3 class="font-bold">Upcoming IPOs to Watch</h3>
+  <div class="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 text-xs">
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-black text-white flex items-center justify-center font-bold">O</div><div><div class="font-semibold">OpenAI</div><div class="text-slate-500">AI • Late 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px]">Announced</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold">D</div><div><div class="font-semibold">Databricks</div><div class="text-slate-500">Software • Late 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px]">Announced</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-black text-white flex items-center justify-center">S</div><div><div class="font-semibold">Shein</div><div class="text-slate-500">Retail • 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px]">Announced</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">An</div><div><div class="font-semibold">Anthropic</div><div class="text-slate-500">AI • Late 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 text-[10px]">Filed</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center">Di</div><div><div class="font-semibold">Discord</div><div class="text-slate-500">Social • H2 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 text-[10px]">Filed</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-purple-600 text-white flex items-center justify-center">St</div><div><div class="font-semibold">Stripe</div><div class="text-slate-500">Fintech • TBD</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px]">Rumored</span></div></div>
+  </div>
+  <div class="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 text-xs">
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-green-600 text-white flex items-center justify-center">Sp</div><div><div class="font-semibold">SpaceX</div><div class="text-slate-500">Aerospace • Jun 2026</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px]">Listed</span></div></div>
+    <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-center"><div class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center">Re</div><div><div class="font-semibold">Revolut</div><div class="text-slate-500">Fintech • 2027-28</div><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px]">Rumored</span></div></div>
+  </div>
+</section>
+
+<!-- Trust + Video -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div>
+        <h3 class="text-lg font-bold">Nobody can predict the future, but our AI puts the odds in your favor</h3>
+        <p class="mt-3 text-sm text-slate-600 leading-6">It is impossible to predict perfectly which stocks will beat the market. But we work hard to continuously improve our AI capacity to detect trends, learn from past events, and achieve the highest possible success rate. Our data demonstrate that our AI models successfully separate, on average, the stocks that beat the market in the next 3 months from those that don’t.</p>
+        <div class="mt-4 flex items-center gap-3 text-xs text-slate-500">
+          <span>Featured in:</span><span class="font-bold">Citywire</span><span>•</span><span class="font-bold">Investing.com</span><span>•</span><span class="font-bold">Finimize</span><span>•</span><span class="font-bold">Kiplinger</span>
+        </div>
+      </div>
+      <div>
+        <div class="relative rounded-xl overflow-hidden bg-[#0B1220] aspect-video flex items-center justify-center">
+          <div class="text-white text-center"><div class="text-4xl mb-2">▶</div><div class="text-sm font-semibold">How to Use Invelix</div><div class="text-xs text-white/60">2:31 • Watch tutorial</div></div>
+          <a href="how-it-works.html" class="absolute inset-0"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing CTA -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
+  <div class="bg-[#0B1220] rounded-2xl p-8 text-white text-center">
+    <h3 class="text-2xl font-extrabold">Start Making Smarter Investment Decisions</h3>
+    <p class="mt-2 text-white/60 text-sm">Our AI-powered stock analytics platform will help you pick the best stocks and optimize your portfolios.</p>
+    <a href="pricing.html" class="mt-6 inline-flex h-11 px-8 rounded-full bg-[#0EE6B7] text-[#0B1220] font-bold items-center">Start Now — Free Tier Available →</a>
+    <div class="mt-4 text-xs text-white/40">No credit card required • Cancel anytime • 10 stocks free</div>
+  </div>
+</section>
+
+<footer class="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 text-xs text-slate-500 leading-5">
+  <div class="grid md:grid-cols-4 gap-8 border-t border-slate-200 pt-8">
+    <div><div class="font-extrabold text-slate-800 flex items-center gap-2"><span class="w-6 h-6 rounded bg-[#0B1220] text-white flex items-center justify-center text-[10px]">IX</span> INVELIX</div><p class="mt-2">Invelix is a stock analytics platform powered by AI. It helps investors to pick the best stocks, optimize portfolios, and make data-driven decisions.</p></div>
+    <div><div class="font-semibold text-slate-800">Product</div><div class="mt-2 space-y-1"><a href="us-stocks.html" class="block hover:text-slate-800">US Stocks</a><a href="etfs.html" class="block hover:text-slate-800">ETFs</a><a href="trade-ideas.html" class="block hover:text-slate-800">Trade Ideas</a><a href="pricing.html" class="block hover:text-slate-800">Pricing</a></div></div>
+    <div><div class="font-semibold text-slate-800">Resources</div><div class="mt-2 space-y-1"><a href="how-it-works.html" class="block hover:text-slate-800">How it Works</a><a href="stock-aapl.html" class="block hover:text-slate-800">Example: AAPL Analysis</a><a href="#" class="block hover:text-slate-800">Forecast Accuracy</a></div></div>
+    <div><div class="font-semibold text-slate-800">Legal</div><p class="mt-2">Nobody can predict the future. Invelix Score reflects probability based on historical patterns; past performance does not guarantee future results. Not financial advice.</p></div>
+  </div>
+  <div class="mt-8 text-center text-slate-400">© 2026 Invelix — Built as Danelfin-class harness demo. Brand: Invelix. All data mock for demo.</div>
+</footer>
+
+<script>
+const data = {
+  us_top: [
+    {rank:1,ticker:"ITUB",name:"Itau Unibanco Holding SA",flag:"🇧🇷",score:10,change:0,f:10,t:8,s:10,lr:6,perf:16.06},
+    {rank:2,ticker:"EQX",name:"Equinox Gold Corp",flag:"🇨🇦",score:10,change:0,f:10,t:8,s:9,lr:5,perf:-13.03},
+    {rank:3,ticker:"BBD",name:"Banco Bradesco SA",flag:"🇧🇷",score:10,change:0,f:10,t:6,s:10,lr:6,perf:7.8},
+    {rank:4,ticker:"VALE",name:"Vale SA",flag:"🇧🇷",score:10,change:0,f:9,t:7,s:8,lr:6,perf:17.34},
+    {rank:5,ticker:"BTG",name:"B2Gold Corp",flag:"🇨🇦",score:10,change:0,f:10,t:8,s:10,lr:5,perf:19.06},
+  ]
+};
+function pill(score){
+  let cls="score-5";
+  if(score>=9) cls="score-10";
+  else if(score>=7) cls="score-7";
+  else if(score>=5) cls="score-5";
+  else if(score>=3) cls="score-3";
+  else cls="score-1";
+  return `<span class="score-pill ${cls}">${score}</span>`;
+}
+function row(r){
+  return `<tr class="hover:bg-slate-50">
+    <td class="px-4 py-3 font-mono text-xs">${r.rank}</td>
+    <td class="px-4 py-3"><a href="stock-aapl.html" class="font-semibold text-[#0B1220] hover:underline">${r.ticker}</a> <span class="text-slate-500">${r.name}</span></td>
+    <td class="px-4 py-3">${r.flag}</td>
+    <td class="px-4 py-3">${pill(r.score)}</td>
+    <td class="px-4 py-3 text-slate-400">—</td>
+    <td class="px-4 py-3">${pill(r.f)}</td>
+    <td class="px-4 py-3">${pill(r.t)}</td>
+    <td class="px-4 py-3">${pill(r.s)}</td>
+    <td class="px-4 py-3">${pill(r.lr)}</td>
+    <td class="px-4 py-3 text-right font-mono ${r.perf>=0?'text-[#16C784]':'text-[#EF4444]'}">${r.perf>0?'+':''}${r.perf}%</td>
+  </tr>`;
+}
+document.getElementById('rankingTable').innerHTML = data.us_top.map(row).join('');
+// search toggle
+const inp = document.getElementById('searchInput');
+const dd = document.getElementById('searchDropdown');
+if(inp && dd){
+  inp.addEventListener('focus', ()=> dd.classList.remove('hidden'));
+  inp.addEventListener('blur', ()=> setTimeout(()=> dd.classList.add('hidden'),150));
+  inp.addEventListener('input', ()=> { if(inp.value.length>0) dd.classList.remove('hidden'); });
+}
+const heroSearch = document.getElementById('heroSearch');
+if(heroSearch){
+  heroSearch.addEventListener('keydown', (e)=>{ if(e.key==='Enter') window.location.href='stock-aapl.html'; });
+}
+document.getElementById('mobileMenuBtn')?.addEventListener('click', ()=>{
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+</script>
+</body>
+</html>
