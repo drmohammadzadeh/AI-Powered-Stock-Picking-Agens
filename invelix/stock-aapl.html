@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Inc (AAPL) AI Stock Analysis | Invelix</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}};</script>
+<style>
+.score-pill{font-family:'JetBrains Mono',monospace;font-weight:700;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:28px;font-size:13px;color:white}
+.score-10,.score-9{background:#16C784}.score-8,.score-7{background:#0EE6B7;color:#0B1220}.score-6,.score-5{background:#F59E0B}.score-4,.score-3{background:#F97316}.score-2,.score-1{background:#EF4444}
+.gradient-bar{height:8px;border-radius:9999px;background:linear-gradient(to right,#EF4444,#F59E0B,#0EE6B7,#16C784)}
+.blur-lock{filter:blur(5px);user-select:none}
+</style>
+</head>
+<body class="bg-[#F8F9FB] text-slate-800 font-sans">
+<header class="sticky top-0 z-50 bg-[#0B1220] text-white border-b border-white/10">
+  <div class="max-w-[1280px] mx-auto px-4 lg:px-6 h-[64px] flex items-center justify-between gap-4">
+    <a href="index.html" class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0EE6B7] to-[#16C784] flex items-center justify-center font-extrabold text-[#0B1220]">IX</div><span class="text-[20px] font-extrabold">INVELIX</span></a>
+    <div class="hidden md:flex flex-1 max-w-[420px] relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span><input placeholder="Search stocks, ETFs, or themes" class="w-full h-9 pl-9 pr-3 rounded-full bg-white text-sm"><a href="stock-aapl.html" class="absolute right-1 top-1 h-7 px-4 rounded-full bg-[#0B1220] text-white text-xs font-semibold flex items-center">Analyze</a></div>
+    <div class="flex items-center gap-3"><a href="portfolios.html" class="hidden sm:inline-flex h-9 px-4 rounded-full bg-white/10 text-sm font-medium items-center">My Portfolios</a><a href="pricing.html" class="h-9 px-5 rounded-full bg-[#0EE6B7] text-[#0B1220] text-sm font-bold flex items-center">Get Started</a></div>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<div class="max-w-[1280px] mx-auto px-4 lg:px-6 py-3 text-xs text-slate-500"><a href="index.html" class="hover:underline">Home</a> › <a href="us-stocks.html" class="hover:underline">US Stocks</a> › <span class="font-semibold text-slate-800">AAPL</span> • Apple Inc</div>
+
+<!-- Price header + chart -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-4 lg:p-6">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div class="flex gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold"></div>
+        <div>
+          <div class="flex items-center gap-2"><h1 class="text-xl font-bold">Apple Inc (AAPL)</h1><span class="px-2 py-0.5 rounded-full bg-slate-100 text-xs font-semibold">NASDAQ</span><span class="text-xs text-slate-500">• Technology Hardware</span></div>
+          <div class="mt-1 flex items-baseline gap-3"><span class="text-2xl font-extrabold">$326.61</span><span class="text-sm font-semibold text-[#16C784]">+1.82% today</span><span class="text-xs text-slate-500">Sep 12, 2026 • 16:00 ET</span></div>
+          <div class="mt-2 flex gap-1 text-xs"><button class="px-2.5 py-1 rounded-full bg-[#0B1220] text-white font-semibold">1M</button><button class="px-2.5 py-1 rounded-full bg-slate-100">3M</button><button class="px-2.5 py-1 rounded-full bg-slate-100">6M</button><button class="px-2.5 py-1 rounded-full bg-slate-100">1Y</button><button class="px-2.5 py-1 rounded-full bg-slate-100">5Y</button><button class="px-2.5 py-1 rounded-full bg-slate-100">All</button><a href="#" class="ml-2 px-3 py-1 rounded-full border border-slate-200 font-semibold">Advanced Chart →</a></div>
+        </div>
+      </div>
+      <div class="flex gap-2"><button class="h-9 px-4 rounded-full border border-slate-200 text-sm font-semibold">Add to Portfolio</button><button class="h-9 px-4 rounded-full bg-[#0EE6B7] text-[#0B1220] text-sm font-bold">Buy / Sell</button></div>
+    </div>
+    <!-- Chart placeholder -->
+    <div class="mt-6 h-[220px] bg-slate-50 rounded-xl border border-slate-200 p-3 relative overflow-hidden">
+      <svg viewBox="0 0 800 180" class="w-full h-full">
+        <path d="M0 120 L80 110 L160 100 L240 90 L320 95 L400 80 L480 60 L560 50 L640 40 L720 20 L800 15" fill="none" stroke="#0B1220" stroke-width="2"/>
+        <path d="M480 60 L560 45 L640 20 L720 10 L800 5" fill="none" stroke="#16C784" stroke-width="2" stroke-dasharray="5 5"/>
+        <!-- markers -->
+        <circle cx="240" cy="90" r="6" fill="#EF4444" stroke="white" stroke-width="2"/><text x="240" y="95" font-size="8" text-anchor="middle" fill="white">▼</text>
+        <circle cx="400" cy="80" r="6" fill="#16C784" stroke="white" stroke-width="2"/><text x="400" y="85" font-size="8" text-anchor="middle" fill="white">▲</text>
+      </svg>
+      <div class="absolute bottom-2 left-3 text-[10px] text-slate-400">Custom range Sep 10, 2025 → Sep 10, 2026 • Red ▼ Sell • Green ▲ Buy • Dotted = Invelix Forecast</div>
+      <div class="absolute top-3 right-3 flex gap-2 text-xs"><span class="px-2 py-1 rounded-full bg-white border">1M</span><span class="px-2 py-1 rounded-full bg-[#0B1220] text-white">3M</span><span class="px-2 py-1 rounded-full bg-white border">6M</span><span class="px-2 py-1 rounded-full bg-white border">1Y</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Score Explanation -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 mt-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8">
+    <h2 class="text-lg font-bold">AAPL AI-Powered Stock Analysis</h2>
+    <div class="mt-4 grid lg:grid-cols-[200px_1fr] gap-6">
+      <div class="text-center">
+        <div class="text-xs tracking-widest text-slate-500 font-semibold">AI SCORE</div>
+        <div class="mt-2 w-[120px] h-[120px] mx-auto rounded-2xl bg-[#F59E0B] flex flex-col items-center justify-center text-white"><div class="text-[48px] font-extrabold leading-none">6</div><div class="text-sm font-bold tracking-widest">HOLD</div></div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">Fundamental</div><div class="font-bold text-[#16C784] text-sm">8</div></div>
+          <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">Technical</div><div class="font-bold text-sm">5</div></div>
+          <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">Sentiment</div><div class="font-bold text-sm">5</div></div>
+          <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">Low Risk</div><div class="font-bold text-sm">6</div></div>
+        </div>
+        <div class="mt-3"><div class="gradient-bar relative"><div class="absolute w-3 h-3 bg-white border-2 border-slate-800 rounded-full top-1/2 -translate-y-1/2" style="left:56%"></div></div><div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>Low</span><span>Average</span><span>High</span></div><div class="text-[10px] text-slate-500">Probability of Beating Market (3M)</div></div>
+      </div>
+      <div>
+        <p class="text-sm leading-6 text-slate-700">According to Invelix’s proprietary AI model, <span class="font-semibold">Apple Inc today receives an AI Score of 6/10, which translates to a Hold rating.</span> The stock has a <span class="font-semibold">56% probability</span> of outperforming the market in the next 3 months, which is <span class="font-semibold">5% higher</span> than the average probability of any stock (51%). This moderate edge is supported by several positive contributors. The strongest boost comes from the <span class="font-semibold">long tail of fundamental signals (+1.83%)</span>, followed by the <span class="font-semibold">Chart Pattern (180d) (+1.08%)</span>. Net Property, Plant & Equipment (Net PP&E) in the top 10% adds <span class="font-semibold">+0.85%</span>, while Chart Pattern (504d) (+0.71%) and Chart Pattern (120d) (+0.57%) also contribute. On the negative side, the Chart Pattern (60d) is the top detractor (-0.87%), and the Industry (GICS) as Technology Hardware weighs down the probability (-0.52%).</p>
+        <div class="mt-4 grid md:grid-cols-3 gap-3 text-xs">
+          <div class="bg-slate-50 rounded-xl p-3"><div class="text-slate-500">Net PP&E</div><div class="font-bold">$51,431M</div><div class="text-[#16C784]">Top 10% • +0.85%</div></div>
+          <div class="bg-slate-50 rounded-xl p-3"><div class="text-slate-500">Beginning Cash</div><div class="font-bold">$35,934M</div><div class="text-[#16C784]">Top 10%</div></div>
+          <div class="bg-slate-50 rounded-xl p-3"><div class="text-slate-500">Price/Book (MRQ)</div><div class="font-bold">44.16</div><div class="text-[#EF4444]">Top 10% • -0.32%</div></div>
+        </div>
+        <div class="mt-3 text-xs text-slate-500">Top detractor: Price/Book 44.16 very high valuation (-0.32%) + Performance YTD +20.14% top 20% (-0.28%) suggests run-up.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Alpha Factors -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 mt-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-8">
+    <h3 class="font-bold">AI Score Alpha Factors</h3>
+    <p class="text-xs text-slate-500">These AI Factors group the most impactful alpha signals. Green = increases probability, Red = reduces it.</p>
+    <div class="mt-4 space-y-3">
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Valuation</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:72%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+2.60%</span><span class="hidden lg:inline text-xs text-slate-400 w-64">How stock is priced vs fundamentals</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Momentum</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:36%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+1.30%</span><span class="hidden lg:inline text-xs text-slate-400 w-64">Direction & strength of price</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Sentiment</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:23%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+0.83%</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Size & Liquidity</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:8%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+0.29%</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Financial Strength</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:6%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+0.20%</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Growth</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:4%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+0.15%</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Earnings Quality</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#16C784]" style="width:2%"></div></div><span class="w-16 text-right font-mono text-sm text-[#16C784]">+0.05%</span></div>
+      <div class="flex items-center gap-3"><span class="w-36 text-sm">Volatility</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#EF4444]" style="width:5%"></div></div><span class="w-16 text-right font-mono text-sm text-[#EF4444]">-0.15%</span><span class="hidden lg:inline text-xs text-slate-400 w-64">Price tends to fluctuate</span></div>
+    </div>
+    <div class="mt-4 p-3 rounded-xl bg-[#0B1220] text-white flex items-center justify-between"><span class="text-sm">AAPL probability advantage of beating market (3M):</span><span class="font-mono font-bold text-[#0EE6B7]">+5.27%</span></div>
+    <div class="mt-2 text-xs text-slate-500">AI Score 6 Hold because probability 56.00% vs universe mean 50.73% = +5.27% advantage.</div>
+  </div>
+</section>
+
+<!-- Alpha Signals -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 mt-6">
+  <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="p-6">
+      <h3 class="font-bold">Alpha Signals: What Drives the AI Score</h3>
+      <p class="text-xs text-slate-500">Alpha Signals show individual signals used by Invelix AI. Each signal highlights impact on probability advantage and helps explain the Score.</p>
+      <div class="mt-3 flex items-center gap-2 text-xs"><span class="score-pill score-6">6 Hold</span><span>AAPL has +5.27% probability advantage (56.00% vs 50.73% mean) →</span><span class="font-mono font-bold text-[#16C784]">+5.27%</span></div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead class="bg-slate-50 text-slate-500 uppercase tracking-widest"><tr><th class="text-left px-4 py-2">Type</th><th class="text-left px-4 py-2">Alpha Signal</th><th class="text-left px-4 py-2">Current Value</th><th class="text-left px-4 py-2">Decile</th><th class="text-right px-4 py-2">Impact (3M)</th></tr></thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-amber-50 text-amber-700">Fundamental</span></td><td class="px-4 py-2 font-medium">Fundamentals Impact (Long Tail)</td><td class="px-4 py-2">—</td><td class="px-4 py-2">N/A</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+1.83%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-sky-50 text-sky-700">Technical</span></td><td class="px-4 py-2 font-medium">Chart Pattern (180d)</td><td class="px-4 py-2">figure_145</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+1.08%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-sky-50 text-sky-700">Technical</span></td><td class="px-4 py-2 font-medium">Chart Pattern (60d)</td><td class="px-4 py-2">figure_168</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#EF4444]">-0.87%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-amber-50 text-amber-700">Fundamental</span></td><td class="px-4 py-2 font-medium">Net PP&E</td><td class="px-4 py-2">51.43K</td><td class="px-4 py-2"><span class="inline-flex gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span></span> top 10%</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.85%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-sky-50 text-sky-700">Technical</span></td><td class="px-4 py-2 font-medium">Chart Pattern (504d)</td><td class="px-4 py-2">figure_40</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.71%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-sky-50 text-sky-700">Technical</span></td><td class="px-4 py-2 font-medium">Chart Pattern (120d)</td><td class="px-4 py-2">figure_191</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.57%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">Sentiment</span></td><td class="px-4 py-2 font-medium">Sentiment Impact (Long Tail)</td><td class="px-4 py-2">—</td><td class="px-4 py-2">N/A</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.56%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">Sentiment</span></td><td class="px-4 py-2 font-medium">Industry (GICS)</td><td class="px-4 py-2">Tech Hardware</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#EF4444]">-0.52%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">Sentiment</span></td><td class="px-4 py-2 font-medium">Earnings Countdown</td><td class="px-4 py-2">-42</td><td class="px-4 py-2">top 10%</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.37%</td></tr>
+          <tr><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">Sentiment</span></td><td class="px-4 py-2 font-medium">Sell Success Rate (12M)</td><td class="px-4 py-2">—</td><td class="px-4 py-2">—</td><td class="px-4 py-2 text-right font-mono text-[#16C784]">+0.36%</td></tr>
+          <!-- Locked rows -->
+          <tr class="bg-slate-50/50"><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-violet-50 text-violet-700 blur-lock">Sentiment</span></td><td class="px-4 py-2 blur-lock">Analyst Upgrade Momentum</td><td class="px-4 py-2 blur-lock">0.42</td><td class="px-4 py-2 blur-lock">top 30%</td><td class="px-4 py-2 text-right font-mono blur-lock">+0.33%</td></tr>
+          <tr class="bg-slate-50/50"><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-amber-50 text-amber-700 blur-lock">Fundamental</span></td><td class="px-4 py-2 blur-lock">Price/Book (MRQ)</td><td class="px-4 py-2 blur-lock">44.16</td><td class="px-4 py-2 blur-lock">top 10%</td><td class="px-4 py-2 text-right font-mono text-[#EF4444] blur-lock">-0.32%</td></tr>
+          <tr class="bg-slate-50/50"><td class="px-4 py-2"><span class="px-2 py-1 rounded-full bg-amber-50 text-amber-700 blur-lock">Fundamental</span></td><td class="px-4 py-2 blur-lock">Beginning Cash</td><td class="px-4 py-2 blur-lock">35.93K</td><td class="px-4 py-2 blur-lock">top 10%</td><td class="px-4 py-2 text-right font-mono blur-lock">+0.29%</td></tr>
+        </tbody>
+      </table>
+      <div class="px-4 py-3 bg-amber-50 border-t border-amber-200 flex items-center justify-between text-xs">
+        <span>🔒 18 more signals hidden — <a href="pricing.html" class="font-bold underline">Upgrade to unlock</a> full +0.33% etc. and see all deciles.</span>
+        <a href="pricing.html" class="h-7 px-3 rounded-full bg-[#0B1220] text-white font-semibold flex items-center">Unlock for $29/mo →</a>
+      </div>
+      <div class="px-4 py-2 flex justify-between text-xs text-slate-500 border-t"><span>Rest of Alpha Signals: +0.03%</span><span class="font-mono font-bold text-slate-800">AAPL Probability advantage Total: +5.27% • AI Score 6</span></div>
+      <div class="px-4 py-2 text-xs text-[#16C784]">Significant changes vs previous day • Net PP&E uplift sustained • Chart 60d weakness increased</div>
+    </div>
+  </div>
+</section>
+
+<!-- Trading + Forecast -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 mt-6 grid lg:grid-cols-3 gap-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <h3 class="font-bold">AAPL Trading Parameters</h3>
+    <p class="text-xs text-slate-500">Suggested for 3-month horizon to improve risk management.</p>
+    <div class="mt-4 space-y-3 text-sm">
+      <div class="flex justify-between"><span class="text-slate-500">Entry</span><span class="font-mono font-bold">$326.61</span></div>
+      <div class="flex justify-between"><span class="text-slate-500">Horizon</span><span class="font-semibold">3 months</span></div>
+      <div class="flex justify-between items-center"><span class="text-slate-500">Stop Loss</span><span class="font-mono font-bold blur-lock">$285.20 (-12.7%)</span><a href="pricing.html" class="text-xs px-2 py-1 rounded-full bg-[#0B1220] text-white">Pro</a></div>
+      <div class="flex justify-between items-center"><span class="text-slate-500">Take Profit</span><span class="font-mono font-bold blur-lock">$372.50 (+14.0%)</span><a href="pricing.html" class="text-xs px-2 py-1 rounded-full bg-[#0B1220] text-white">Pro</a></div>
+      <div class="text-xs text-slate-400">or AI Score &lt; 4/10</div>
+    </div>
+  </div>
+  <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6">
+    <div class="flex items-center justify-between"><h3 class="font-bold">AAPL Stock Forecast & Price Target</h3><span class="text-xs px-2 py-1 rounded-full bg-slate-100">Confidence 68%</span></div>
+    <p class="text-xs text-slate-500">Invelix AI projects price range for 1M to 1Y, dotted = most likely path. <a href="#" class="underline">Forecast accuracy</a> independently tracked.</p>
+    <div class="mt-4 flex gap-1 text-xs"><button class="px-3 py-1.5 rounded-full bg-slate-100">1M</button><button class="px-3 py-1.5 rounded-full bg-[#0B1220] text-white">3M</button><button class="px-3 py-1.5 rounded-full bg-slate-100">6M</button><button class="px-3 py-1.5 rounded-full bg-slate-100">1Y</button><span class="ml-auto text-xs text-slate-500">Invelix AI vs Analysts toggle</span></div>
+    <div class="mt-4 h-[180px] bg-slate-50 rounded-xl border border-slate-200 p-3 relative">
+      <svg viewBox="0 0 400 140" class="w-full h-full">
+        <path d="M20 100 L120 90 L220 75 L320 40" fill="none" stroke="#0B1220" stroke-width="2"/>
+        <path d="M220 75 L280 55 L320 40 L350 35" fill="none" stroke="#16C784" stroke-width="2" stroke-dasharray="4 4"/>
+        <path d="M220 75 L280 30 L350 20" fill="none" stroke="#16C784" stroke-width="1" opacity="0.3"/>
+        <path d="M220 75 L280 80 L350 65" fill="none" stroke="#16C784" stroke-width="1" opacity="0.3"/>
+        <path d="M220 75 L280 75 L320 40" fill="rgba(22,199,132,0.08)" stroke="none"/>
+      </svg>
+      <div class="absolute top-3 left-3 text-xs"><div class="font-semibold">Invelix AI 3M Target: <span class="text-[#16C784]">$332.17 (+1.70%)</span></div><div class="text-slate-500">High $372.53 • Low $272.88 • Analysts $339.15 (+3.84%)</div></div>
+    </div>
+    <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+      <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">1M</div><div class="font-bold">$328.44</div><div class="text-[#16C784]">+0.56%</div></div>
+      <div class="bg-[#0B1220] text-white rounded-lg py-2"><div class="text-white/60">3M</div><div class="font-bold">$332.17</div><div class="text-[#0EE6B7]">+1.70%</div></div>
+      <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">6M</div><div class="font-bold">$337.92</div><div class="text-[#16C784]">+3.46%</div></div>
+      <div class="bg-slate-50 rounded-lg py-2"><div class="text-slate-500">1Y</div><div class="font-bold">$350.02</div><div class="text-[#16C784]">+7.17%</div></div>
+    </div>
+    <a href="pricing.html" class="mt-4 w-full h-9 rounded-full bg-[#0EE6B7] text-[#0B1220] font-bold flex items-center justify-center">Unlock AI-powered forecast →</a>
+  </div>
+</section>
+
+<!-- Win Rate + Evolution -->
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 mt-6 grid lg:grid-cols-2 gap-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <h3 class="font-bold">AAPL Average Past Performance & Win Rate</h3>
+    <p class="text-xs text-slate-500">Three months after its 1260 Hold signals since Sep 2026, AAPL had average performance…</p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-xs border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-50"><tr><th class="text-left px-3 py-2">1260 Past Hold Signals</th><th class="px-3 py-2">1M Later</th><th class="px-3 py-2">3M Later</th><th class="px-3 py-2">6M Later</th><th class="px-3 py-2 bg-[#0B1220] text-white">1Y Later</th></tr></thead>
+        <tbody class="divide-y">
+          <tr><td class="px-3 py-2 font-medium">Average Performance</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center font-bold text-[#16C784]">+30.35%</td></tr>
+          <tr><td class="px-3 py-2 font-medium">Average Alpha</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center font-bold">+17.89%</td></tr>
+          <tr><td class="px-3 py-2 font-medium">Win Rate (% Positive)</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center font-bold">86.59%</td></tr>
+          <tr><td class="px-3 py-2 font-medium">% Positive Alpha</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center">—</td><td class="px-3 py-2 text-center font-bold">70.80%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-2 text-xs text-slate-400">1M/3M/6M hidden for Hold — unlock with Pro to see all horizons.</div>
+  </div>
+  <div id="evolution" class="bg-white rounded-2xl border border-slate-200 p-6">
+    <div class="flex items-center justify-between"><h3 class="font-bold">AAPL Scores Evolution</h3><span class="text-xs px-2 py-1 rounded-full bg-slate-100">Apple Inc • AI Score</span></div>
+    <div class="mt-3 flex gap-1 text-xs"><button class="px-3 py-1.5 rounded-full bg-[#0B1220] text-white">Daily</button><button class="px-3 py-1.5 rounded-full bg-slate-100">Weekly</button><button class="px-3 py-1.5 rounded-full bg-slate-100">Monthly</button><button class="px-3 py-1.5 rounded-full bg-slate-100">Quarterly</button><span class="ml-auto flex gap-1"><span class="w-6 h-6 rounded bg-slate-100 flex items-center justify-center text-[10px]">10</span><span class="w-6 h-6 rounded bg-slate-100 flex items-center justify-center text-[10px]">1</span></span></div>
+    <div class="mt-4 h-[160px] bg-slate-50 rounded-xl border border-slate-200 p-2">
+      <svg viewBox="0 0 400 120" class="w-full h-full">
+        <line x1="0" y1="20" x2="400" y2="20" stroke="#E2E8F0" stroke-width="0.5"/><line x1="0" y1="40" x2="400" y2="40" stroke="#E2E8F0" stroke-width="0.5"/><line x1="0" y1="60" x2="400" y2="60" stroke="#E2E8F0" stroke-width="0.5"/>
+        <polyline points="0,30 50,30 100,40 150,55 200,45 250,45 300,30 350,40" fill="none" stroke="#0EE6B7" stroke-width="2"/>
+        <circle cx="350" cy="40" r="4" fill="#F59E0B" stroke="white" stroke-width="2"/>
+      </svg>
+      <div class="flex justify-between text-[10px] text-slate-400"><span>Feb 12</span><span>Mar 12</span><span>Apr 12</span><span>May 12</span><span>Jun 12</span><span>Jul 12</span><span>Aug 12</span><span>Sep 12</span></div>
+    </div>
+    <div class="mt-3 flex gap-2"><a href="portfolios.html" class="flex-1 h-9 rounded-full bg-[#0B1220] text-white text-xs font-semibold flex items-center justify-center">Track in Portfolio →</a><a href="trade-ideas.html" class="h-9 px-4 rounded-full border border-slate-200 text-xs font-semibold flex items-center justify-center">See Trade Ideas</a></div>
+  </div>
+</section>
+
+<section class="max-w-[1280px] mx-auto px-4 lg:px-6 py-8">
+  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs leading-5"><span class="font-semibold">Disclaimer:</span> Nobody can predict the future. Invelix Score reflects probability based on historical patterns; past performance does not guarantee future results. This is not financial advice. Invelix does not execute trades.</div>
+</section>
+
+<footer class="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 text-xs text-slate-500 text-center border-t">© 2026 Invelix — <a href="index.html" class="underline">Home</a> • <a href="us-stocks.html" class="underline">US Stocks</a> • <a href="pricing.html" class="underline">Pricing</a> • <a href="how-it-works.html" class="underline">How it Works</a></footer>
+</body>
+</html>

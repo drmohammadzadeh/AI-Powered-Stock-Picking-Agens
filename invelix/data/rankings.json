@@ -1,0 +1,83 @@
+{
+  "us_top": [
+    {"rank": 1, "ticker": "ITUB", "name": "Itau Unibanco Holding SA", "country": "BR", "flag": "🇧🇷", "score": 10, "label": "Strong Buy", "change": 0, "fundamental": 10, "technical": 8, "sentiment": 10, "lowRisk": 6, "perf": 16.06},
+    {"rank": 2, "ticker": "EQX", "name": "Equinox Gold Corp", "country": "CA", "flag": "🇨🇦", "score": 10, "label": "Strong Buy", "change": 0, "fundamental": 10, "technical": 8, "sentiment": 9, "lowRisk": 5, "perf": -13.03},
+    {"rank": 3, "ticker": "BBD", "name": "Banco Bradesco SA", "country": "BR", "flag": "🇧🇷", "score": 10, "label": "Strong Buy", "change": 0, "fundamental": 10, "technical": 6, "sentiment": 10, "lowRisk": 6, "perf": 7.8},
+    {"rank": 4, "ticker": "VALE", "name": "Vale SA", "country": "BR", "flag": "🇧🇷", "score": 10, "label": "Strong Buy", "change": 0, "fundamental": 9, "technical": 7, "sentiment": 8, "lowRisk": 6, "perf": 17.34},
+    {"rank": 5, "ticker": "BTG", "name": "B2Gold Corp", "country": "CA", "flag": "🇨🇦", "score": 10, "label": "Strong Buy", "change": 0, "fundamental": 10, "technical": 8, "sentiment": 10, "lowRisk": 5, "perf": 19.06},
+    {"rank": 6, "ticker": "NVDA", "name": "NVIDIA Corp", "country": "US", "flag": "🇺🇸", "score": 9, "label": "Strong Buy", "change": 1, "fundamental": 9, "technical": 9, "sentiment": 9, "lowRisk": 5, "perf": 68.42},
+    {"rank": 7, "ticker": "MSFT", "name": "Microsoft Corp", "country": "US", "flag": "🇺🇸", "score": 9, "label": "Strong Buy", "change": 0, "fundamental": 9, "technical": 8, "sentiment": 8, "lowRisk": 7, "perf": 24.11},
+    {"rank": 8, "ticker": "AVGO", "name": "Broadcom Inc", "country": "US", "flag": "🇺🇸", "score": 9, "label": "Strong Buy", "change": 0, "fundamental": 9, "technical": 9, "sentiment": 7, "lowRisk": 6, "perf": 41.2},
+    {"rank": 320, "ticker": "AAPL", "name": "Apple Inc", "country": "US", "flag": "🇺🇸", "score": 6, "label": "Hold", "change": 0, "fundamental": 8, "technical": 5, "sentiment": 5, "lowRisk": 6, "perf": 20.14},
+    {"rank": 450, "ticker": "TSLA", "name": "Tesla Inc", "country": "US", "flag": "🇺🇸", "score": 5, "label": "Hold", "change": -1, "fundamental": 5, "technical": 4, "sentiment": 6, "lowRisk": 4, "perf": -12.5}
+  ],
+  "aapl_detail": {
+    "ticker": "AAPL",
+    "name": "Apple Inc",
+    "price": 326.61,
+    "score": 6,
+    "label": "Hold",
+    "probability": 56.0,
+    "advantage": 5.27,
+    "universeMean": 50.73,
+    "subScores": {"fundamental": 8, "technical": 5, "sentiment": 5, "lowRisk": 6},
+    "explanation": "According to Invelix's proprietary AI model, Apple Inc today receives an AI Score of 6/10, which translates to a Hold rating. The stock has a 56% probability of outperforming the market in the next 3 months, which is 5% higher than the average probability of any stock (51%). This moderate edge is supported by several positive contributors. The strongest boost comes from the long tail of fundamental signals (+1.83%), followed by the Chart Pattern (180d) (+1.08%), which positively influences the probability. Net Property, Plant & Equipment (Net PP&E) in the top 10% adds +0.85%, while the Chart Pattern (504d) (+0.71%) and Chart Pattern (120d) (+0.57%) also contribute. On the negative side, the Chart Pattern (60d) is the top detractor (-0.87%), and the Industry (GICS) classification as Technology Hardware weighs down the probability (-0.52%).",
+    "alphaFactors": [
+      {"name": "Valuation", "impact": 2.6, "desc": "How the stock is priced relative to fundamentals"},
+      {"name": "Momentum", "impact": 1.3, "desc": "Direction and strength of recent price movements"},
+      {"name": "Sentiment", "impact": 0.83, "desc": "How analysts and the market view the stock"},
+      {"name": "Size & Liquidity", "impact": 0.29, "desc": "Company size and trading liquidity"},
+      {"name": "Financial Strength", "impact": 0.2, "desc": "Balance sheet strength"},
+      {"name": "Growth", "impact": 0.15, "desc": "Expected pace of revenue and earnings expansion"},
+      {"name": "Earnings Quality", "impact": 0.05, "desc": "Stability of reported earnings"},
+      {"name": "Volatility", "impact": -0.15, "desc": "How much price tends to fluctuate"}
+    ],
+    "alphaSignals": [
+      {"type": "Fundamental", "name": "Fundamentals Impact (Long Tail)", "value": "-", "decile": null, "impact": 1.83},
+      {"type": "Technical", "name": "Chart Pattern (180d)", "value": "figure_145", "decile": null, "impact": 1.08},
+      {"type": "Technical", "name": "Chart Pattern (60d)", "value": "figure_168", "decile": null, "impact": -0.87},
+      {"type": "Fundamental", "name": "Net Property, Plant & Equipment (Net PP&E)", "value": "51.43K", "decile": "top 10%", "impact": 0.85},
+      {"type": "Technical", "name": "Chart Pattern (504d)", "value": "figure_40", "decile": null, "impact": 0.71},
+      {"type": "Technical", "name": "Chart Pattern (120d)", "value": "figure_191", "decile": null, "impact": 0.57},
+      {"type": "Sentiment", "name": "Sentiment Impact (Long Tail)", "value": "-", "decile": null, "impact": 0.56},
+      {"type": "Sentiment", "name": "Industry (GICS)", "value": "Technology Hardware, Storage & Peripherals", "decile": null, "impact": -0.52},
+      {"type": "Sentiment", "name": "Earnings Countdown", "value": "-42", "decile": "top 10%", "impact": 0.37},
+      {"type": "Sentiment", "name": "Sell Success Rate (Past 12M)", "value": "-", "decile": null, "impact": 0.36},
+      {"type": "Sentiment", "name": "Analyst Upgrade Momentum", "value": "0.42", "decile": "top 30%", "impact": 0.33, "locked": true},
+      {"type": "Fundamental", "name": "Price/Book (MRQ)", "value": "44.16", "decile": "top 10%", "impact": -0.32, "locked": true},
+      {"type": "Fundamental", "name": "Beginning Cash", "value": "35.93K", "decile": "top 10%", "impact": 0.29, "locked": true},
+      {"type": "Sentiment", "name": "News Tone (30d)", "value": "0.68", "decile": "top 20%", "impact": 0.28, "locked": true},
+      {"type": "Technical", "name": "Performance (YTD)", "value": "20.14%", "decile": "top 20%", "impact": -0.28, "locked": true}
+    ],
+    "forecast": {
+      "last": 326.61,
+      "horizons": {
+        "1M": {"avg": 328.44, "high": 345.0, "low": 310.2, "upside": 0.56},
+        "3M": {"avg": 332.17, "high": 372.53, "low": 272.88, "upside": 1.7},
+        "6M": {"avg": 337.92, "high": 385.0, "low": 265.0, "upside": 3.46},
+        "1Y": {"avg": 350.02, "high": 420.0, "low": 240.0, "upside": 7.17}
+      },
+      "analyst": {"avg": 339.15, "upside": 3.84},
+      "confidence": 68
+    },
+    "winRate": {
+      "hold": {"count": 1260, "1M": {"avgPerf": null, "avgAlpha": null, "winRate": null}, "1Y": {"avgPerf": 30.35, "avgAlpha": 17.89, "winRate": 86.59, "posAlpha": 70.8}}
+    },
+    "trading": {"entry": 326.61, "horizon": "3 months", "stop": "locked", "take": "locked"},
+    "evolution": [
+      {"date": "2026-02-12", "score": 7}, {"date": "2026-03-12", "score": 7}, {"date": "2026-04-12", "score": 6}, {"date": "2026-05-12", "score": 5}, {"date": "2026-06-12", "score": 6}, {"date": "2026-07-12", "score": 6}, {"date": "2026-08-12", "score": 7}, {"date": "2026-09-12", "score": 6}
+    ]
+  },
+  "etfs": [
+    {"rank": 1, "ticker": "SMH", "name": "VanEck Semiconductor ETF", "provider": "VanEck", "score": 9, "change": 1, "fundamental": 8, "technical": 9, "sentiment": 7, "lowRisk": 6, "perf": 22.1},
+    {"rank": 2, "ticker": "XLF", "name": "Financial Select Sector SPDR", "provider": "SPDR", "score": 8, "change": 0, "fundamental": 7, "technical": 8, "sentiment": 6, "lowRisk": 7, "perf": 9.4},
+    {"rank": 3, "ticker": "QQQ", "name": "Invesco QQQ Trust", "provider": "Invesco", "score": 8, "change": 0, "fundamental": 8, "technical": 8, "sentiment": 8, "lowRisk": 6, "perf": 18.7}
+  ],
+  "tradeIdeas": [
+    {"ticker": "ITUB", "name": "Itau Unibanco", "signal": "Strong Buy", "score": 10, "winRate": 68, "count": 420, "avgPerf": 18.0, "forecast": 5.2},
+    {"ticker": "NVDA", "name": "NVIDIA", "signal": "Buy", "score": 9, "winRate": 67, "count": 380, "avgPerf": 22.4, "forecast": 4.8},
+    {"ticker": "MSFT", "name": "Microsoft", "signal": "Buy", "score": 9, "winRate": 65, "count": 510, "avgPerf": 15.1, "forecast": 3.1},
+    {"ticker": "EQX", "name": "Equinox Gold", "signal": "Strong Buy", "score": 10, "winRate": 66, "count": 290, "avgPerf": 21.2, "forecast": 6.1},
+    {"ticker": "VALE", "name": "Vale SA", "signal": "Strong Buy", "score": 10, "winRate": 64, "count": 340, "avgPerf": 16.7, "forecast": 4.9}
+  ]
+}
